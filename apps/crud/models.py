@@ -19,6 +19,7 @@ class User(db.Model,UserMixin):
     @property
     def password(self):
         raise AttributeError("読み取り不可")
+
     @password.setter
     def password(self,password):
         self.password_hash = generate_password_hash(password)
@@ -28,6 +29,7 @@ class User(db.Model,UserMixin):
     
     def is_duplicate_email(self): #メールアドレスが重複していないかチェックするメソッド
         return User.query.filter_by(email=self.email).first() is not None
+
 @login_manager.user_loader #認証ユーザーの呼び出し方を定義(idにより区別)
 def load_user(user_id):
     return User.query.get(user_id)

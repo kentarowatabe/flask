@@ -29,7 +29,7 @@ def signup():
             return redirect(url_for("auth.signup")) #重複時はサインアップ画面に戻る
         db.session.add(user)
         db.session.commit() #DBへ登録
-        login_user(user) #登録内容をセッションに保存
+        login_user(user) #登録内容をセッションに保存(ログイン済みとするため)
         next_ = request.args.get("next")
         if next_ is None or not next_.startswith("/"):
             next_ = url_for("crud.users")
